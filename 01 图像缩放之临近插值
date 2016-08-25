@@ -1,0 +1,27 @@
+01临近插值是缩放里最简单，算法最少的图像缩放算法。
+通过将距离源坐标最近的像素坐标转换为目标像素。
+
+float rowRatio = ((float)pixelsHigh)/((float)destH);
+    float colRatio = ((float)pixelsWide)/((float)destW);
+    for(int row=0; row<destH; row++) {
+        // convert to three dimension data
+        int srcRow = round(((float)row)*rowRatio);
+        if(srcRow >=pixelsHigh) {
+            srcRow = pixelsHigh - 1;
+        }
+        for(int col=0; col<destW; col++) {
+            int srcCol = round(((float)col)*colRatio);
+            if(srcCol >= pixelsWide) {
+                srcCol = pixelsWide - 1;
+            }
+            
+            nindex=(row*destW+col);
+            srcIndex=(srcRow*pixelsWide+srcCol);
+
+            destBitmapData[nindex*4+0] = bitmapData[srcIndex*4+0]; // red
+            destBitmapData[nindex*4+1] = bitmapData[srcIndex*4+1]; // green
+            destBitmapData[nindex*4+2] = bitmapData[srcIndex*4+2];   // blue
+            destBitmapData[nindex*4+3] = bitmapData[srcIndex*4+3]; // alpha
+        }
+    }
+
