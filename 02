@@ -16,3 +16,20 @@
 #import"GPUImageTextureInput.h"
 #import"GPUImageUIElement.h"
 #import"GPUImageBuffer.h"
+import"GPUImageFilter.h"
+import"GPUImageTwoInputFilter.h"
+pragma mark - 调整颜色 HandleColor
+import"GPUImageBrightnessFilter.h" //亮度
+import"GPUImageExposureFilter.h" //曝光
+import"GPUImageContrastFilter.h" //对比度
+import"GPUImageSaturationFilter.h" //饱和度
+import"GPUImageGammaFilter.h" //伽马线
+import"GPUImageColorInvertFilter.h" //反色
+import"GPUImageSepiaFilter.h" //褐色（怀旧）
+import"GPUImageLevelsFilter.h" //色阶
+import"GPUImageGrayscaleFilter.h" //灰度
+import"GPUImageHistogramFilter.h" //色彩直方图，显示在图片上
+
+文／wonderstruck（简书作者）
+原文链接：http://www.jianshu.com/p/1e5845b4646e
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
