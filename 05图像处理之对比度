@@ -1,0 +1,44 @@
+
+调整对比度改变图像的亮度，调整对比度只是增加画面的黑白对比，也就是说，亮的地方更亮，暗的地方更暗。
+如果用一张黑白照片举例的话，增大对比度到最终的结果会是一张剪影似得照片，非黑即白。
+
+通过指数函数 y=(rgb-0.5)*x+0.5 来改变每个像素点值，对比度越高，图像非黑即白。  rgb为每个分量的值
+
+glsl实现
+contrast = 1 正常，范围为0至4
+     gl_FragColor = vec4(((textureColor.rgb - vec3(0.5)) * contrast + vec3(0.5)), textureColor.w);
+
+c语言 实现
+float contrast = value;  //曝光度  -10至10 ,0为正常
+    int nindex = 0;  //每个像素点下标(包括RGBA)每个下标又包含四个值
+    for (int j = 0; j < pixelsHigh; j++)
+    {
+        for(int i = 0; i < pixelsWide; i++)
+        {
+            nindex=(j*pixelsWide+i);
+            
+            int r = (bitmapData[nindex*4+0]-124)*contrast+124;
+            if (r>255) {
+                r = 255;
+            }else if (r<0){
+                r = 0;
+            }
+            int g = (bitmapData[nindex*4+1]-124)*contrast+124;
+            if (g>255) {
+                g = 255;
+            }else if (g<0){
+                g = 0;
+            }
+            int b = (bitmapData[nindex*4+2]-124)*contrast+124;
+            if (b>255) {
+                b = 255;
+            }else if (b<0){
+                b = 0;
+            }
+            
+            bitmapData[nindex*4+0] = r;
+            bitmapData[nindex*4+1] = g;
+            bitmapData[nindex*4+2] = b;
+            bitmapData[nindex*4+3] = 255;
+        }
+    }
