@@ -1,0 +1,22 @@
+
+调整曝光度改变图像的亮度，增加曝光度，可以提高亮度，改变色彩平衡。
+通过指数函数 y=2^x 来改变每个像素点值，曝光度越高，图像越亮。
+
+glsl实现
+exposure = 0 正常，范围为-10至10
+     gl_FragColor = vec4(textureColor.rgb * pow(2.0, exposure), textureColor.w);
+
+c语言 实现
+int exposure = value;  //曝光度  -10至10 ,0为正常
+    int nindex = 0;  //每个像素点下标(包括RGBA)每个下标又包含四个值
+    for (int j = 0; j < pixelsHigh; j++)
+    {
+        for(int i = 0; i < pixelsWide; i++)
+        {
+            nindex=(j*pixelsWide+i);
+            bitmapData[nindex*4+0] = bitmapData[nindex*4+0]*pow(2.0, exposure)>255?255:bitmapData[nindex*4+0]*pow(2.0, exposure);
+            bitmapData[nindex*4+1] = bitmapData[nindex*4+1]*pow(2.0, exposure)>255?255:bitmapData[nindex*4+1]*pow(2.0, exposure);
+            bitmapData[nindex*4+2] = bitmapData[nindex*4+2]*pow(2.0, exposure)>255?255:bitmapData[nindex*4+2]*pow(2.0, exposure);
+            bitmapData[nindex*4+3] = 255;
+        }
+    }
